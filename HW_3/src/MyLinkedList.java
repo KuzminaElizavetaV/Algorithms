@@ -9,6 +9,7 @@ public class MyLinkedList {
      * 5.* Любые другие доработки, которые захотите для тренировки
      */
 
+
     private class Node {
         int value;
         Node next;
@@ -85,6 +86,11 @@ public class MyLinkedList {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * метод поиска последнего элемента списка
+     * @return Node last
+     */
+
     private Node findLast() {
         Node current = head;
         while (current.next != null) {
@@ -92,6 +98,11 @@ public class MyLinkedList {
         }
         return current;
     }
+
+    /**
+     * метод вывода списка в виде форматированной строки
+     * @return String
+     */
 
     @Override
     public String toString() {
@@ -110,4 +121,35 @@ public class MyLinkedList {
         result.append("]");
         return result.toString();
     }
+
+    /**
+     * метод получения размера списка
+     * @return int size
+     */
+    public int size() {
+        int currentSize = 0;
+        Node current = head;
+        while (current != null) {
+            current = current.next;
+            currentSize++;
+        }
+        return currentSize;
+    }
+
+    /**
+     * метод проверки наличия элемента в списке
+     * @param value
+     * @return boolean
+     */
+    public boolean contains(int value) {
+        Node current = head;
+        while (current.next != null) {
+            if (current.value == value) {
+                return true;
+            }
+            current = current.next;
+        }
+    return false;
+    }
 }
+
