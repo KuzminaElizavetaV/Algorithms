@@ -4,3 +4,7 @@
 **Домашнее задание:**
 ***В классе Tree добавить возможность использовать любые сравниваемые типы данных
 То есть нужно параметризовать класс T дженериком <T extends Comparable<T>>***
+
+ссылочка на класс Tree
+
+https://github.com/KuzminaElizavetaV/Algorithms/blob/main/HW_4/src/Tree.java
