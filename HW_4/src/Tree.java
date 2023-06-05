@@ -1,37 +1,37 @@
 import java.util.*;
 
-public class Tree <T extends Comparable<? super T>> {
+public class Tree <V extends Comparable<? super V>> {
 
-    private class Node {
-        T value;
-        Node left;
-        Node right;
+    private static class Node<V extends Comparable<? super V>> {
+        V value;
+        Node<V> left;
+        Node<V> right;
 
-        public Node(T value) {
+        public Node(V value) {
             this.value = value;
         }
     }
 
-    private Node root;
+    private Node<V> root;
 
-    public void add(T value) {
+    public void add(V value) {
         if (root == null) {
-            root = new Node(value);
+            root = new Node<>(value);
             return;
         }
         add(root, value);
     }
 
-    private void add(Node current, T value) {
+    private void add(Node<V> current, V value) {
         if (value.compareTo(current.value) < 0) {
             if (current.left == null) {
-                current.left = new Node(value);
+                current.left = new Node<>(value);
             } else {
                 add(current.left, value);
             }
         } else if (value.compareTo(current.value) > 0) {
             if (current.right == null) {
-                current.right = new Node(value);
+                current.right = new Node<>(value);
             } else {
                 add(current.right, value);
             }
@@ -43,11 +43,11 @@ public class Tree <T extends Comparable<? super T>> {
         return super.toString();
     }
 
-    public boolean contains(T value) {
+    public boolean contains(V value) {
         return findNode(root, value) != null;
     }
 
-    private Node findNode(Node current, T value) {
+    private Node<V> findNode(Node<V> current, V value) {
         if (current == null) {
             return null;
         }
@@ -61,12 +61,12 @@ public class Tree <T extends Comparable<? super T>> {
         }
     }
 
-    public void remove(T value) {
+    public void remove(V value) {
         root = removeNode(root, value);
     }
 
     // Метод, который удаляет ноду и возвращает ту ноду, которая будет вместо удаленной
-    private Node removeNode(Node current, T value) {
+    private Node<V> removeNode(Node<V> current, V value) {
         if (current == null) {
             return null;
         }
@@ -101,21 +101,21 @@ public class Tree <T extends Comparable<? super T>> {
         //           10
         //
         // current = 6
-        Node smallestNodeOnTheRight = findFirst(current.right); // 8
-        T smallestValueOnTheRight = smallestNodeOnTheRight.value; // 8
+        Node<V> smallestNodeOnTheRight = findFirst(current.right); // 8
+        V smallestValueOnTheRight = smallestNodeOnTheRight.value; // 8
         current.value = smallestValueOnTheRight;
         current.right = removeNode(current.right, smallestValueOnTheRight);
         return current;
     }
 
-    public T findFirst() {
+    public V findFirst() {
         if (root == null) {
             throw new NoSuchElementException();
         }
         return findFirst(root).value;
     }
 
-    private Node findFirst(Node current) {
+    private Node<V> findFirst(Node<V> current) {
         if (current.left != null) {
             return findFirst(current.left);
         }
@@ -125,17 +125,17 @@ public class Tree <T extends Comparable<? super T>> {
     // Поиск в глубину DFS Depth-first search
     // Поиск в ширину  BFS Breath-first search
 
-    public List<T> dfs() {
+    public List<V> dfs() {
         if (root == null) {
             return List.of();
         }
 
-        List<T> result = new ArrayList<>();
+        List<V> result = new ArrayList<>();
         dfs(root, result);
         return List.copyOf(result);
     }
 
-    private void dfs(Node current, List<T> result) {
+    private void dfs(Node<V> current, List<V> result) {
         // in-order
         if (current.left != null) {
             dfs(current.left, result);
@@ -146,16 +146,16 @@ public class Tree <T extends Comparable<? super T>> {
         }
     }
 
-    public List<T> bfs() {
+    public List<V> bfs() {
         if (root == null) {
             return List.of();
         }
 
-        List<T> result = new ArrayList<>();
-        Queue<Node> queue = new ArrayDeque<>();
+        List<V> result = new ArrayList<>();
+        Queue<Node<V>> queue = new ArrayDeque<>();
         queue.add(root);
         while (!queue.isEmpty()) {
-            Node next = queue.poll();
+            Node<V> next = queue.poll();
             result.add(next.value);
             if (next.left != null) {
                 queue.add(next.left);

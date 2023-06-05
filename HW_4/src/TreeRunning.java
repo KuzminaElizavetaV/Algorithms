@@ -10,6 +10,7 @@ public class TreeRunning {
         tree.add(6);
         tree.add(10);
         tree.add(12);
+
         System.out.println("Поиск первого элемента: " + tree.findFirst());
         System.out.println("Обход в ширину  BFS (Breath-first search): " + tree.bfs());
         System.out.println("Обход в глубину DFS (Depth-first search): " + tree.dfs());
