@@ -1,12 +1,12 @@
 public class MyLinkedList <T extends Comparable<? super T>> {
-    private class Node {
+    private static class Node <T extends Comparable<? super T>> {
         T value;
-        Node next;
+        Node<T> next;
         Node(T value) {
             this.value = value;
         }
     }
-    private Node head;
+    private Node<T> head;
 
     /**
      * Метод добавления элемента в список
@@ -14,10 +14,10 @@ public class MyLinkedList <T extends Comparable<? super T>> {
      */
     public void add(T value) {
         if (head == null) {
-            head = new Node(value);
+            head = new Node<>(value);
         } else {
-            Node last = findLast();
-            last.next = new Node(value);
+            Node<T> last = findLast();
+            last.next = new Node<>(value);
         }
     }
     public T getFirst() {
@@ -27,7 +27,7 @@ public class MyLinkedList <T extends Comparable<? super T>> {
         if (index < 0 || head == null) {
             throw new IndexOutOfBoundsException(index);
         }
-        Node current = head;
+        Node<T> current = head;
         int currentIndex = 0;
         while (current != null && currentIndex < index) {
             current = current.next;
@@ -51,7 +51,7 @@ public class MyLinkedList <T extends Comparable<? super T>> {
             head = head.next;
             return pop;
         }
-        Node previous = head; // предыдущая от искомой
+        Node<T> previous = head; // предыдущая от искомой
         int currentIndex = 1;
         while (previous.next != null) {
             if (currentIndex == index) {
@@ -75,7 +75,7 @@ public class MyLinkedList <T extends Comparable<? super T>> {
         addReversedRecursive(head, reversed);
         return reversed;
     }
-    private void addReversedRecursive(Node current, MyLinkedList<T> result) {
+    private void addReversedRecursive(Node<T> current, MyLinkedList<T> result) {
         if (current.next != null) {
             addReversedRecursive(current.next, result);
         }
@@ -86,8 +86,8 @@ public class MyLinkedList <T extends Comparable<? super T>> {
      * @return последний элемент списка
      */
 
-    private Node findLast() {
-        Node current = head;
+    private Node<T> findLast() {
+        Node<T> current = head;
         while (current.next != null) {
             current = current.next;
         }
@@ -102,7 +102,7 @@ public class MyLinkedList <T extends Comparable<? super T>> {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("[");
-        Node current = head;
+        Node<T> current = head;
         while (current != null) {
             result.append(current.value).append(" -> ");
             current = current.next;
@@ -123,7 +123,7 @@ public class MyLinkedList <T extends Comparable<? super T>> {
      */
     public int size() {
         int currentSize = 0;
-        Node current = head;
+        Node<T> current = head;
         while (current != null) {
             current = current.next;
             currentSize++;
@@ -137,7 +137,7 @@ public class MyLinkedList <T extends Comparable<? super T>> {
      * @return boolean
      */
     public boolean contains(T value) {
-        Node current = head;
+        Node<T> current = head;
         while (current.next != null) {
             if (current.value == value) {
                 return true;
