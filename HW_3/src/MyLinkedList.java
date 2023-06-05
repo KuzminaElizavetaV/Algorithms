@@ -1,4 +1,4 @@
-public class MyLinkedList {
+public class MyLinkedList <T extends Comparable<? super T>> {
 
     /**
      * Реализовать следующие методы
@@ -11,17 +11,17 @@ public class MyLinkedList {
 
 
     private class Node {
-        int value;
+        T value;
         Node next;
 
-        Node(int value) {
+        Node(T value) {
             this.value = value;
         }
     }
 
     private Node head;
 
-    public void add(int value) {
+    public void add(T value) {
         if (head == null) {
             head = new Node(value);
         } else {
@@ -30,11 +30,11 @@ public class MyLinkedList {
         }
     }
 
-    public int getFirst() {
+    public T getFirst() {
         return get(0);
     }
 
-    public int get(int index) {
+    public T get(int index) {
         if (index < 0 || head == null) {
             throw new IndexOutOfBoundsException(index);
         }
@@ -51,17 +51,17 @@ public class MyLinkedList {
         throw new IndexOutOfBoundsException(index);
     }
 
-    public int popFirst() {
+    public T popFirst() {
         return pop(0);
     }
 
-    public int pop(int index) {
+    public T pop(int index) {
         if (index < 0 || head == null) {
             throw new IndexOutOfBoundsException(index);
         }
 
         if (index == 0) {
-            int pop = head.value;
+            T pop = head.value;
             head = head.next;
             return pop;
         }
@@ -70,7 +70,7 @@ public class MyLinkedList {
         int currentIndex = 1;
         while (previous.next != null) {
             if (currentIndex == index) {
-                int pop = previous.next.value;
+                T pop = previous.next.value;
                 previous.next = previous.next.next;
                 return pop;
             }
@@ -81,7 +81,7 @@ public class MyLinkedList {
         throw new IndexOutOfBoundsException(index);
     }
 
-    public MyLinkedList reversed() {
+    public MyLinkedList<T> reversed() {
         // TODO: 25.05.2023 Реализовать пункт 4
         throw new UnsupportedOperationException();
     }
@@ -138,10 +138,10 @@ public class MyLinkedList {
 
     /**
      * метод проверки наличия элемента в списке
-     * @param value
+     * @param value значение, которое надо найти в списке
      * @return boolean
      */
-    public boolean contains(int value) {
+    public boolean contains(T value) {
         Node current = head;
         while (current.next != null) {
             if (current.value == value) {
