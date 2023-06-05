@@ -1,25 +1,7 @@
-public class Main {
+public class MyLinkedListRunning {
     public static void main(String[] args) {
-        // TDD Test Driven Development
+        MyLinkedList<Integer> myLinkedList = new MyLinkedList<>();
 
-        // add(x) pop() peek()
-        // Queue FIFO First In First Out
-        // Stack LIFO Last  In First Out
-
-//        LinkedList add -> addFirst, pop -> pollFirst() -> STACK
-//        LinkedList add -> add,      pop -> poll() -> QUEUE
-
-        // [1, 2, 3, 4, 5]
-        // a = [null, 1, ->b]
-        // b = [ a<-, 2, ->c]
-        // c = [ b<-, 3, ->d]
-        // d = [ c<-, 4, ->e]
-        // e = [ d<-, 5, null]
-
-
-        MyLinkedList myLinkedList = new MyLinkedList();
-//        System.out.println(myLinkedList.get(-2)); // IndexOutOfBounds
-//        System.out.println(myLinkedList.get(0)); // IndexOutOfBounds
         System.out.println(myLinkedList);
         System.out.println(myLinkedList.size());
 
@@ -28,6 +10,8 @@ public class Main {
         myLinkedList.add(3);
         myLinkedList.add(4);
         System.out.println(myLinkedList);
+        System.out.println(myLinkedList.reversed());
+
         System.out.println(myLinkedList.size());
         System.out.println(myLinkedList.contains(2));
         System.out.println(myLinkedList.contains(6));

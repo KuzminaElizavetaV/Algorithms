@@ -82,8 +82,16 @@ public class MyLinkedList <T extends Comparable<? super T>> {
     }
 
     public MyLinkedList<T> reversed() {
-        // TODO: 25.05.2023 Реализовать пункт 4
-        throw new UnsupportedOperationException();
+        MyLinkedList<T> reversed = new MyLinkedList<>();
+        addReversedRecursive(head, reversed);
+        return reversed;
+    }
+
+    private void addReversedRecursive(Node current, MyLinkedList<T> result) {
+        if (current.next != null) {
+            addReversedRecursive(current.next, result);
+        }
+        result.add(current.value);
     }
 
     /**
