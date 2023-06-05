@@ -2,10 +2,6 @@ import java.util.*;
 
 public class Tree <T extends Comparable<? super T>> {
 
-    // TODO: 29.05.2023
-    //  Добавить возможность использовать Tree для любых сравниваемых типов данных
-    //  То есть нужно параметризовать класс T дженериком <T extends Comparable<T>>
-
     private class Node {
         T value;
         Node left;
@@ -92,7 +88,7 @@ public class Tree <T extends Comparable<? super T>> {
         // 2. У удаляемого узла ровно 1 дочерний узел
         if (current.left != null && current.right == null) {
             return current.left;
-        } else if (current.left == null && current.right != null) {
+        } else if (current.left == null) {
             return current.right;
         }
 
