@@ -9,3 +9,7 @@
 4. (**) Заменить все int значения на дженерик T
 5. (***) Любые другие доработки, которые захотите для тренировки
 
+Реализовано 4 пункта из домашнего задания. Ссылочка на класс MyLinkedList
+
+https://github.com/KuzminaElizavetaV/Algorithms/blob/main/HW_3/src/MyLinkedList.java
+

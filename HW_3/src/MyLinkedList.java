@@ -1,26 +1,17 @@
 public class MyLinkedList <T extends Comparable<? super T>> {
-
-    /**
-     * Реализовать следующие методы
-     * 1. public int size() - получить размер списка
-     * 2. public boolean contains(int value) - проверить наличие элемента в списке
-     * 3.* public MyLinkedList reversed() - создать НОВЫЙ список с обратным порядком
-     * 4.** Заменить все int значения на дженерик T
-     * 5.* Любые другие доработки, которые захотите для тренировки
-     */
-
-
     private class Node {
         T value;
         Node next;
-
         Node(T value) {
             this.value = value;
         }
     }
-
     private Node head;
 
+    /**
+     * Метод добавления элемента в список
+     * @param value значение, которое необходимо добавить
+     */
     public void add(T value) {
         if (head == null) {
             head = new Node(value);
@@ -29,16 +20,13 @@ public class MyLinkedList <T extends Comparable<? super T>> {
             last.next = new Node(value);
         }
     }
-
     public T getFirst() {
         return get(0);
     }
-
     public T get(int index) {
         if (index < 0 || head == null) {
             throw new IndexOutOfBoundsException(index);
         }
-
         Node current = head;
         int currentIndex = 0;
         while (current != null && currentIndex < index) {
@@ -54,18 +42,15 @@ public class MyLinkedList <T extends Comparable<? super T>> {
     public T popFirst() {
         return pop(0);
     }
-
     public T pop(int index) {
         if (index < 0 || head == null) {
             throw new IndexOutOfBoundsException(index);
         }
-
         if (index == 0) {
             T pop = head.value;
             head = head.next;
             return pop;
         }
-
         Node previous = head; // предыдущая от искомой
         int currentIndex = 1;
         while (previous.next != null) {
@@ -81,22 +66,24 @@ public class MyLinkedList <T extends Comparable<? super T>> {
         throw new IndexOutOfBoundsException(index);
     }
 
+    /**
+     * метод создания нового реверсирвного списка
+     * @return новый список элементов в обратной последовательности
+     */
     public MyLinkedList<T> reversed() {
         MyLinkedList<T> reversed = new MyLinkedList<>();
         addReversedRecursive(head, reversed);
         return reversed;
     }
-
     private void addReversedRecursive(Node current, MyLinkedList<T> result) {
         if (current.next != null) {
             addReversedRecursive(current.next, result);
         }
         result.add(current.value);
     }
-
     /**
      * метод поиска последнего элемента списка
-     * @return Node last
+     * @return последний элемент списка
      */
 
     private Node findLast() {
@@ -109,7 +96,7 @@ public class MyLinkedList <T extends Comparable<? super T>> {
 
     /**
      * метод вывода списка в виде форматированной строки
-     * @return String
+     * @return список ввиде строки
      */
 
     @Override
@@ -132,7 +119,7 @@ public class MyLinkedList <T extends Comparable<? super T>> {
 
     /**
      * метод получения размера списка
-     * @return int size
+     * @return размер списка
      */
     public int size() {
         int currentSize = 0;
