@@ -1,5 +1,7 @@
 package HomeWork_1;
 
+import java.util.Arrays;
+
 public class Tasks {
     public static void main(String[] args) {
         int[] a = null;
@@ -7,6 +9,7 @@ public class Tasks {
         int[] c = {7, 12};
         int[] d = {7, 8, 0};
         int[] e = {7, 8, 0, 4, 6};
+        int[] f = {1, 2, 3};
 
         System.out.println("ЗАДАНИЕ 1");
         System.out.println("Проверка метода 1:");
@@ -15,16 +18,16 @@ public class Tasks {
         System.out.println(compareArraysLength(b, d));
         System.out.println();
         System.out.println("Проверка метода 2:");
-        System.out.println(checkArraysNull(a, d));
+        System.out.println(checkArraysNotNull(a, d));
         System.out.println("************************");
-        System.out.println(checkArraysNull(b, c));
+        System.out.println(checkArraysNotNull(b, c));
         System.out.println();
         System.out.println("Проверка метода 3:");
         System.out.println(compareArrIndexArrLength(b, d));
         System.out.println("************************");
         System.out.println(compareArrIndexArrLength(e, b));
+        System.out.println();
         System.out.println("ЗАДАНИЕ 2");
-
         String[][] arr0 = new String[][]{
                 {"1", "2", "3", "4", "5"},
                 {"5", "4", "3", "2", "1"},
@@ -51,13 +54,19 @@ public class Tasks {
                 {"1", "1", "1", "1", "1"}
         };
         System.out.println(sum2d(arr1));
+        System.out.println();
+        System.out.println("ЗАДАНИЕ 3");
+        System.out.println(Arrays.toString(arrayDiff(b, d)));
         System.out.println("************************");
-
-
-
+        System.out.println(Arrays.toString(arrayDiff(b, e)));
+        System.out.println();
+        System.out.println("ЗАДАНИЕ 4");
+        System.out.println(Arrays.toString(divideArrays(b, d)));
+        System.out.println("************************");
+        System.out.println(Arrays.toString(divideArrays(b, c)));
+        System.out.println("************************");
+        System.out.println(Arrays.toString(divideArrays(b, f)));
     }
-
-
     /**
      * Задание 1. Реализуйте 3 метода, чтобы в каждом из них получить разные стандартные для Java исключения.
      * 1. Сравнение длин массивов
@@ -72,11 +81,10 @@ public class Tasks {
             return false;
         }
     }
-
     /**
      * 2. Проверка массива на null
      */
-    public static boolean checkArraysNull(int[] arr1, int[] arr2) {
+    public static boolean checkArraysNotNull(int[] arr1, int[] arr2) {
         try {
             if (arr1 == null || arr2 == null) {
                 throw new NullPointerException("One of the arrays is null or Arrays are null");
@@ -86,7 +94,6 @@ public class Tasks {
             return false;
         }
     }
-
     /**
      * 3. Проверка последнего индекса первого массива с длиной второго массива (Такой своеобраздый метод сравнения масивов)
      */
@@ -101,7 +108,6 @@ public class Tasks {
             return false;
         }
     }
-
     /**
      * Задание 2. Посмотрите на код, и подумайте сколько разных типов исключений вы тут сможете получить?
      * public static int sum2d(String[][] arr) {
@@ -115,10 +121,8 @@ public class Tasks {
      *         return sum;
      *     }
      */
-
     private static int sum2d(String[][] arr) {
         int sum = 0;
-
         try {
             for (int i = 0; i < arr.length; i++) {
                 for (int j = 0; j < 5; j++) {
@@ -131,49 +135,41 @@ public class Tasks {
         }
         return sum;
     }
-
     /**
      * Задание 3: Реализуйте метод, принимающий в качестве аргументов два целочисленных массива, и возвращает новый
      * массив, каждый элемент которого равен разности элементов двух входящих массивов в той же ячейке. Если длины
      * массивов не равны, необходимо как-то оповестить пользователя.
      */
-
     public static int[] arrayDiff(int[] arr1, int[] arr2) {
-        if (arr1.length != arr2.length) {
-            throw new IllegalArgumentException("Массивы не одинаковой длины!!!");
-        }
         int[] result = new int[arr1.length];
-
-        for (int i = 0; i < arr1.length; i++) {
-            result[i] = arr1[i] - arr2[i];
+        if (compareArraysLength(arr1, arr2)) {
+            for (int i = 0; i < arr1.length; i++) {
+                result[i] = arr1[i] - arr2[i];
+            }
         }
         return result;
     }
-
     /**
      * Задание 4: Реализуйте метод, принимающий в качестве аргументов два целочисленных массива, и возвращает новый
      * массив, каждый элемент которого равен частному элементов двух входящих массивов в той же ячейке. Если длины
      * массивов не равны, необходимо как-то оповестить пользователя. Важно: При выполнении метода единственное исключение,
      * которое пользователь может увидеть - RuntimeException, т.е. ваше.
      */
-
     public static int[] divideArrays(int[] arr1, int[] arr2) {
-        if (arr1 == null || arr2 == null) {
-            throw new NullPointerException("Array is null");
-        }
-
-        if (arr1.length != arr2.length) {
-            throw new RuntimeException("Array lengths are not equal!");
-        }
-
         int[] result = new int[arr1.length];
-
-        for (int i = 0; i < arr1.length; i++) {
-            if (arr2[i] == 0) {
-                throw new RuntimeException("Division by zero!");
+        if (checkArraysNotNull(arr1, arr2))
+            if (compareArraysLength(arr1, arr2)) {
+                try {
+                    for (int i = 0; i < arr1.length; i++) {
+                        if (arr2[i] == 0) {
+                            throw new RuntimeException("Division by zero!");
+                        }
+                        result[i] = arr1[i] / arr2[i];
+                    }
+                } catch (RuntimeException e) {
+                    System.out.println("Делить на ноль нельзя!");
+                }
             }
-            result[i] = arr1[i] / arr2[i];
-        }
         return result;
     }
 }
