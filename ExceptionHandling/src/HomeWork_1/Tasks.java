@@ -6,6 +6,54 @@ public class Tasks {
         int[] b = {4, 5, 6};
         int[] c = {7, 12};
         int[] d = {7, 8, 0};
+        int[] e = {7, 8, 0, 4, 6};
+
+        System.out.println("ЗАДАНИЕ 1");
+        System.out.println("Проверка метода 1:");
+        System.out.println(compareArraysLength(b, c));
+        System.out.println("************************");
+        System.out.println(compareArraysLength(b, d));
+        System.out.println();
+        System.out.println("Проверка метода 2:");
+        System.out.println(checkArraysNull(a, d));
+        System.out.println("************************");
+        System.out.println(checkArraysNull(b, c));
+        System.out.println();
+        System.out.println("Проверка метода 3:");
+        System.out.println(compareArrIndexArrLength(b, d));
+        System.out.println("************************");
+        System.out.println(compareArrIndexArrLength(e, b));
+        System.out.println("ЗАДАНИЕ 2");
+
+        String[][] arr0 = new String[][]{
+                {"1", "2", "3", "4", "5"},
+                {"5", "4", "3", "2", "1"},
+                {"1", "1", "1", "1", "1"},
+                {"1", "1", "1", "1", "1"},
+                {"1", "1", "1", "1", "1"}
+        };
+        System.out.println(sum2d(arr0));
+        System.out.println("************************");
+        String[][] arr = new String[][]{
+                {"1", "1"},
+                {"1", "1", "1", "1", "1"},
+                {"1", "2"},
+                {"3", "3"},
+                {"2", "6"}
+        };
+        System.out.println(sum2d(arr));
+        System.out.println("************************");
+        String[][] arr1 = new String[][]{
+                {"1", "1", "1", "1", "1"},
+                {"1", "1", "а", "1", "1"},
+                {"1", "1", "1", "1", "1"},
+                {"c", "1", "1", "1", "1"},
+                {"1", "1", "1", "1", "1"}
+        };
+        System.out.println(sum2d(arr1));
+        System.out.println("************************");
+
+
 
     }
 
@@ -14,61 +62,72 @@ public class Tasks {
      * Задание 1. Реализуйте 3 метода, чтобы в каждом из них получить разные стандартные для Java исключения.
      * 1. Сравнение длин массивов
      */
-    public static int[] arrayDiffSize(int[] arr1, int[] arr2) {
-        if (arr1.length != arr2.length) {
-            throw new IllegalArgumentException("Arrays are not of equal length!!!");
+    public static boolean compareArraysLength(int[] arr1, int[] arr2) {
+        try {
+            if (arr1.length != arr2.length) {
+                throw new IllegalArgumentException("Arrays are not of equal length!!!");
+            } else return true;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Arrays are not of equal length!!!");
+            return false;
         }
-        int[] result = new int[arr1.length];
-
-        for (int i = 0; i < arr1.length; i++) {
-            result[i] = arr1[i] - arr2[i];
-        }
-        return result;
     }
 
     /**
      * 2. Проверка массива на null
      */
-    public static int[] checkArrayNullPointer(int[] arr1, int[] arr2) {
-        if (arr1 == null || arr2 == null) {
-            throw new NullPointerException("Array is null");
+    public static boolean checkArraysNull(int[] arr1, int[] arr2) {
+        try {
+            if (arr1 == null || arr2 == null) {
+                throw new NullPointerException("One of the arrays is null or Arrays are null");
+            } else return true;
+        } catch (NullPointerException e) {
+            System.out.println("One of the arrays is null or Arrays are null");
+            return false;
         }
-
-        int[] result = new int[arr1.length];
-
-        for (int i = 0; i < arr1.length; i++) {
-            result[i] = arr1[i] - arr2[i];
-        }
-        return result;
     }
 
     /**
-     * 3. Проверка индексов первого массива с длиной второго массива
-      */
-    public static int[] compareArraysIndexOut(int[] arr1, int[] arr2) {
-        int[] result = new int[arr1.length];
-
-        for (int i = 0; i < arr1.length; i++) {
-            if (i >= arr2.length) {
-                throw new IndexOutOfBoundsException("Index is out of bounds " + i);
+     * 3. Проверка последнего индекса первого массива с длиной второго массива (Такой своеобраздый метод сравнения масивов)
+     */
+    public static boolean compareArrIndexArrLength(int[] arr1, int[] arr2) {
+        try {
+            if (arr1.length - 1 >= arr2.length) {
+                throw new IndexOutOfBoundsException("Index is out of bounds ");
             }
-            result[i] = arr1[i] - arr2[i];
+            else return true;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Index is out of bounds");
+            return false;
         }
-        return result;
     }
 
     /**
      * Задание 2. Посмотрите на код, и подумайте сколько разных типов исключений вы тут сможете получить?
-     * Надо обработать код исключениями!
+     * public static int sum2d(String[][] arr) {
+     *         int sum = 0;
+     *         for (int i = 0; i < arr.length; i++) {
+     *             for (int j = 0; j < 5; j++) {
+     *                 int val = Integer.parseInt(arr[i][j]);
+     *                 sum += val;
+     *             }
+     *         }
+     *         return sum;
+     *     }
      */
 
-    public static int sum2d(String[][] arr) {
+    private static int sum2d(String[][] arr) {
         int sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < 5; j++) {
-                int val = Integer.parseInt(arr[i][j]);
-                sum += val;
+
+        try {
+            for (int i = 0; i < arr.length; i++) {
+                for (int j = 0; j < 5; j++) {
+                    int val = Integer.parseInt(arr[i][j]);
+                    sum += val;
+                }
             }
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            System.out.println("Массив не квадратный или в нем присутствуют не только числа");
         }
         return sum;
     }
