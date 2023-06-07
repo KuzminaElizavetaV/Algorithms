@@ -1,6 +1,7 @@
 ### Урок 2. Исключения и их обработка
 **Домашнее задание:**
 1. Реализуйте метод, который запрашивает у пользователя ввод дробного числа (типа float), и возвращает введенное значение. Ввод текста вместо числа не должно приводить к падению приложения, вместо этого, необходимо повторно запросить у пользователя ввод данных.
+   https://github.com/KuzminaElizavetaV/Algorithms/blob/main/ExceptionHandling/src/HomeWork_2/Task_1.java
 2. Если необходимо, исправьте данный код:
                 
        try {
@@ -10,7 +11,7 @@
        } catch (ArithmeticException e) {
             System.out.println("Catching exception: " + e);
        }
-
+   https://github.com/KuzminaElizavetaV/Algorithms/blob/main/ExceptionHandling/src/HomeWork_2/Task_2.java
 3. Дан следующий код, исправьте его там, где требуется:
 
         public static void main(String[] args) throws Exception {
@@ -32,4 +33,6 @@
         public static void printSum(Integer a, Integer b) throws FileNotFoundException {
             System.out.println(a + b);
         }
+   https://github.com/KuzminaElizavetaV/Algorithms/blob/main/ExceptionHandling/src/HomeWork_2/Task_3.java
 4. Разработайте программу, которая выбросит Exception, когда пользователь вводит пустую строку. Пользователю должно показаться сообщение, что пустые строки вводить нельзя.
+   https://github.com/KuzminaElizavetaV/Algorithms/blob/main/ExceptionHandling/src/HomeWork_2/Task_4.java
