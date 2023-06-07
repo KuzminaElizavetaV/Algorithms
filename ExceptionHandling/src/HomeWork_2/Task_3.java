@@ -2,7 +2,6 @@ package HomeWork_2;
 
 /**
  * Задание 3. Дан следующий код, исправьте его там, где требуется:
- *
  *         public static void main(String[] args) throws Exception {
  *             try {
  *                 int a = 90;
