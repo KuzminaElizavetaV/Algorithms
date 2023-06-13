@@ -15,7 +15,7 @@ public class Main {
             String[] dataArray = input.split(" ");
 
             if (dataArray.length != 6) {
-                throw new IllegalArgumentException("Количество данных должно состоять из 6 строк!");
+                throw new IllegalArgumentException("Вы ввели меньше или больше данных, чем требуется. Количество данных должно состоять из 6 строк!");
             }
 
             String surname = checkValidName(dataArray[0]);
