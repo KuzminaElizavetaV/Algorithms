@@ -19,9 +19,9 @@ public class Main {
                 throw new IllegalArgumentException("Неверное количество данных");
             }
 
-            String lastName = checkValidName(data[0]);
-            String firstName = checkValidName(data[1]);
-            String middleName = checkValidName(data[2]);
+            String surname = checkValidName(data[0]);
+            String name = checkValidName(data[1]);
+            String patronymic = checkValidName(data[2]);
             String birthDate = data[3];
             String phoneNumber = data[4];
             String gender = data[5];
@@ -36,11 +36,11 @@ public class Main {
             if (!isValidGender(gender)) {
                 throw new IllegalArgumentException("Неверный пол");
             }
-// C:\Users\ekuzmina\IdeaProjects\algorithms\ExceptionHandling\src\HomeWork_3
-            String fileName = lastName + ".txt";
+
+            String fileName = surname + ".txt";
             BufferedWriter writer = new BufferedWriter(new FileWriter(
                     "C:\\Users\\ekuzmina\\IdeaProjects\\algorithms\\ExceptionHandling\\src\\HomeWork_3\\" + fileName, true));
-            writer.append("<").append(lastName).append(">").append("<").append(firstName).append(">").append("<").append(middleName)
+            writer.append("<").append(surname).append(">").append("<").append(name).append(">").append("<").append(patronymic)
                     .append(">").append("<").append(birthDate).append("> ").append("<").append(String.valueOf(phone))
                     .append(">").append("<").append(gender).append(">").append(System.lineSeparator());
             writer.close();
