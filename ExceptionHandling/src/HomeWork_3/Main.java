@@ -32,14 +32,14 @@ public class Main {
                 Human human = new Human(checkValidName(data[0]), checkValidName(data[1]), checkValidName(data[2]),
                         data[3], data[4], data[5]);
                 if (!isValidDate(human.dateBirth)) {
-                    throw new IllegalArgumentException("Дата рождения не соответствует формату дд.мм.гггг");
+                    throw new IllegalArgumentException("Дата рождения не соответствует формату дд.мм.гггг!");
                 }
                 if (!isDigits(human.phoneNumber)) {
                     throw new IllegalArgumentException("Неверный формат номера телефона! Введите целое беззнаковое число" +
-                            " без форматирования");
+                            " без форматирования, например 89021451235.");
                 }
                 if (!isValidGender(human.gender)) {
-                    throw new IllegalArgumentException("Некорректный пол! Допустимы только символы: f, m, м, ж");
+                    throw new IllegalArgumentException("Некорректный пол! Допустимы только символы: f, m, м, ж.");
                 }
                 return human;
             } else throw new IllegalArgumentException("Вы ввели меньше или больше данных, чем требуется. Количество данных" +
