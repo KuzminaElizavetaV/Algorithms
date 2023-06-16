@@ -9,48 +9,47 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Введите данные в 1 строку, согласно шаблону:\nФамилия Имя Отчество дата_рождения(dd.mm.yyyy) номер_телефона пол");
-            String input = scanner.nextLine();
-            String[] dataArray = input.split(" ");
-
-            if (dataArray.length != 6) {
-                throw new IllegalArgumentException("Вы ввели меньше или больше данных, чем требуется. Количество данных должно состоять из 6 строк!");
-            }
-
-            String surname = checkValidName(dataArray[0]);
-            String name = checkValidName(dataArray[1]);
-            String patronymic = checkValidName(dataArray[2]);
-            String dateBirth = dataArray[3];
-            String phoneNumber = dataArray[4];
-            String gender = dataArray[5];
-
-            if (!isValidDate(dateBirth)) {
-                throw new IllegalArgumentException("Дата рождения введена некорректно!");
-            }
-
-            long phone = parsePhoneNumber(phoneNumber);
-
-            if (!isValidGender(gender)) {
-                throw new IllegalArgumentException("Некорректный пол");
-            }
-
-            String fileName = surname + ".txt";
-            BufferedWriter writer = new BufferedWriter(new FileWriter(
-                    "C:\\Users\\ekuzmina\\IdeaProjects\\algorithms\\ExceptionHandling\\src\\HomeWork_3\\" + fileName, true));
-            writer.append("<").append(surname).append(">").append("<").append(name).append(">").append("<").append(patronymic)
-                    .append(">").append("<").append(dateBirth).append("> ").append("<").append(String.valueOf(phone))
-                    .append(">").append("<").append(gender).append(">").append(System.lineSeparator());
-            writer.close();
-            System.out.println("Данные успешно записаны в файл " + fileName);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeData(createValidHuman(inputData()));
     }
 
-    private static String checkValidName(String name){
+    private static String[] inputData() { // метод получения данных от пользователя
+        String[] dataArray = new String[0];
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Введите данные в 1 строку, согласно шаблону:\n" +
+                    "Фамилия Имя Отчество дата_рождения(dd.mm.yyyy) номер_телефона пол");
+            String input = scanner.nextLine();
+            dataArray = input.split(" ");
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        return dataArray;
+    }
+
+    private static Human createValidHuman(String[] data) {
+        try {
+            if (data.length == 6) { // проверка количества введенных данных
+                Human human = new Human(checkValidName(data[0]), checkValidName(data[1]), checkValidName(data[2]),
+                        data[3], data[4], data[5]);
+                if (!isValidDate(human.dateBirth)) {
+                    throw new IllegalArgumentException("Дата рождения введена некорректно!");
+                }
+                if (!isDigits(human.phoneNumber)) {
+                    throw new IllegalArgumentException("Неверный формат номера телефона!");
+                }
+                if (!isValidGender(human.gender)) {
+                    throw new IllegalArgumentException("Некорректный пол");
+                }
+                return human;
+            } else throw new IllegalArgumentException("Вы ввели меньше или больше данных, чем требуется. Количество данных" +
+                    " должно состоять из " + 6 + " строк!");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    private static String checkValidName(String name){ // проверка ФИО
         if (name == null || !name.matches("[А-Яа-яЁёA-Za-z]+")) {
             throw new IllegalArgumentException("Некорректные символы в ФИО: " + name);
         }
@@ -70,16 +69,14 @@ public class Main {
         }
         return true;
     }
-
-    private static long parsePhoneNumber(String phoneNumber) { // Парсинг номера телефона
-        if (phoneNumber == null || !phoneNumber.matches("\\d+")) {
-            throw new IllegalArgumentException("Неверный формат номера телефона");
+    private static boolean isDigits(String string) { // проверка строки только на числа
+        boolean isOnlyDigits = true;
+        for(int i = 0; i < string.length() && isOnlyDigits; i++) {
+            if(!Character.isDigit(string.charAt(i))) {
+                isOnlyDigits = false;
+            }
         }
-        try {
-            return Long.parseLong(phoneNumber);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Неверный формат номера телефона", e);
-        }
+        return true;
     }
 
     private static boolean isValidGender(String gender) { // Проверка корректности значения пола
@@ -87,6 +84,24 @@ public class Main {
                 gender.equalsIgnoreCase("f"))) return true;
         assert gender != null;
         return gender.equalsIgnoreCase("м") ||
-        gender.equalsIgnoreCase("ж");
+                gender.equalsIgnoreCase("ж");
+    }
+
+    private static void writeData(Human human) { // метод записи в файл валидных данных объекта человек
+        try {
+            if (!(human == null)) {
+                String fileName = human.surname + ".txt";
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(
+                        "C:\\Users\\ekuzmina\\IdeaProjects\\algorithms\\ExceptionHandling\\src\\HomeWork_3\\" +
+                                fileName, true))) {
+                    writer.append(human.toString()).append(System.lineSeparator());
+                    System.out.println("Данные успешно записаны в файл " + fileName);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Невозможно записать данные в файл ввиду их некорректного ввода");
+        }
     }
 }
