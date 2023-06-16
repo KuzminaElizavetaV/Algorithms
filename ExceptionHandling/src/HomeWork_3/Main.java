@@ -32,17 +32,18 @@ public class Main {
                 Human human = new Human(checkValidName(data[0]), checkValidName(data[1]), checkValidName(data[2]),
                         data[3], data[4], data[5]);
                 if (!isValidDate(human.dateBirth)) {
-                    throw new IllegalArgumentException("Дата рождения введена некорректно!");
+                    throw new IllegalArgumentException("Дата рождения не соответствует формату дд.мм.гггг");
                 }
                 if (!isDigits(human.phoneNumber)) {
-                    throw new IllegalArgumentException("Неверный формат номера телефона!");
+                    throw new IllegalArgumentException("Неверный формат номера телефона! Введите целое беззнаковое число" +
+                            " без форматирования");
                 }
                 if (!isValidGender(human.gender)) {
-                    throw new IllegalArgumentException("Некорректный пол");
+                    throw new IllegalArgumentException("Некорректный пол! Допустимы только символы: f, m, м, ж");
                 }
                 return human;
             } else throw new IllegalArgumentException("Вы ввели меньше или больше данных, чем требуется. Количество данных" +
-                    " должно состоять из " + 6 + " строк!");
+                    " должно состоять из 6 строк!");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -70,10 +71,9 @@ public class Main {
         return true;
     }
     private static boolean isDigits(String string) { // проверка строки только на числа
-        boolean isOnlyDigits = true;
-        for(int i = 0; i < string.length() && isOnlyDigits; i++) {
+        for(int i = 0; i < string.length(); i++) {
             if(!Character.isDigit(string.charAt(i))) {
-                isOnlyDigits = false;
+                return false;
             }
         }
         return true;
@@ -97,7 +97,7 @@ public class Main {
                     writer.append(human.toString()).append(System.lineSeparator());
                     System.out.println("Данные успешно записаны в файл " + fileName);
                 } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                    throw new RuntimeException(ex.getMessage());
                 }
             }
         } catch (NullPointerException e) {
